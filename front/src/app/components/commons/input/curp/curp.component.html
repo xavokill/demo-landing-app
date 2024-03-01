@@ -1,0 +1,11 @@
+<form #curpForm="ngForm" class="form-floating">
+    <input id="curpLabel" type="text" placeholder="CURP" name="curp" required [(ngModel)]="model.Value"
+           (input)="updateCurp()"
+           [minlength]="model.Length"
+           [maxlength]="model.Length"
+           class="{{ (curpForm.invalid && curpForm.touched) || (curpForm.valid && !model.IsValid)? 'form-control is-invalid' : 'form-control'}}">
+    <label for="curpLabel">Ingresa tu CURP</label>
+    <div class="invalid-feedback">
+      La CURP ingresada no es v&aacute;lida.
+    </div>
+</form>

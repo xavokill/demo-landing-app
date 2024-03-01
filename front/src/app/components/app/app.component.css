@@ -1,0 +1,24 @@
+.nb-header {
+    background-color: #333333;
+}
+
+@media (min-width: 320px) {
+    .header-img {
+        width: 150px;
+        height: 60px;
+    }
+}
+
+@media (min-width: 576px) {
+    .header-img {
+        width: 180px;
+        height: 70px;
+    }
+}
+
+@media (min-width: 768px){
+    .header-img {
+        width: 200px;
+        height: 80px;
+    }
+}

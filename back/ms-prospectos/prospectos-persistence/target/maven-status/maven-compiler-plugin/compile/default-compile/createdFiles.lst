@@ -1,0 +1,5 @@
+mx\com\backend\prospectos\repository\package-info.class
+mx\com\backend\prospectos\model\ApplicationItem$ApplicationItemBuilder.class
+mx\com\backend\prospectos\repository\ApplicationRepository.class
+mx\com\backend\prospectos\model\ApplicationItem.class
+mx\com\backend\prospectos\model\package-info.class

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ApplicationItem.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">prospectos-application</a> &gt; <a href="../index.html" class="el_bundle">prospectos-persistence</a> &gt; <a href="index.source.html" class="el_package">mx.com.backend.prospectos.model</a> &gt; <span class="el_source">ApplicationItem.java</span></div><h1>ApplicationItem.java</h1><pre class="source lang-java linenums">package mx.com.backend.prospectos.model;
+
+import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+import javax.persistence.*;
+import java.util.Map;
+
+/**
+ * Created by
+ */
+@Entity
+@Table(name = &quot;Applications&quot;)
+<span class="nc" id="L14">@Builder</span>
+<span class="nc bnc" id="L15" title="All 30 branches missed.">@Data</span>
+<span class="nc" id="L16">@NoArgsConstructor</span>
+<span class="nc" id="L17">@AllArgsConstructor</span>
+public class ApplicationItem implements Serializable {
+    @Column(name = &quot;alertContent&quot;, nullable = false)
+    @ElementCollection(targetClass = String.class)
+<span class="nc" id="L21">    private Map&lt;String, String&gt; applicationContent;</span>
+    @Column(name = &quot;applicationCode&quot;, nullable = false)
+<span class="nc" id="L23">    private String applicationCode;</span>
+    @Id
+    @GeneratedValue
+    @ApiModelProperty(notes = &quot;the auto internal generated id by alert manager DB , not required to be entered by user into REST API &quot;)
+<span class="nc" id="L27">    private Long id;</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

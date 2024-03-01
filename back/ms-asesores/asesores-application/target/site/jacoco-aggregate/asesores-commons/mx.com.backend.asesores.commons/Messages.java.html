@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Messages.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">asesores-application</a> &gt; <a href="../index.html" class="el_bundle">asesores-commons</a> &gt; <a href="index.source.html" class="el_package">mx.com.backend.asesores.commons</a> &gt; <span class="el_source">Messages.java</span></div><h1>Messages.java</h1><pre class="source lang-java linenums">package mx.com.backend.asesores.commons;
+
+import java.util.ResourceBundle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+/**
+ * The Class Messages.
+ */
+public class Messages {
+
+  /**
+   * Instantiates a new messages.
+   */
+  private Messages() {
+
+  }
+
+  /** The Constant LOG. */
+<span class="nc" id="L20">  private static final Logger LOG = LogManager.getLogger(Messages.class);</span>
+
+  /** The Constant resourceBundle. */
+<span class="nc" id="L23">  private static final ResourceBundle resourceBundle = </span>
+<span class="nc" id="L24">      ResourceBundle.getBundle(&quot;business-exception&quot;);</span>
+
+  /** The Constant BASE_ERROR_PROPERTY. */
+<span class="nc" id="L27">  private static final String BASE_ERROR_PROPERTY = &quot;messages.Asesores.%s&quot;;</span>
+
+  /**
+   * Gets the message.
+   *
+   * @param code the code
+   * @return the message
+   */
+  public static String getMessage(int code) {
+<span class="nc" id="L36">    String key = String.format(BASE_ERROR_PROPERTY, code);</span>
+<span class="nc" id="L37">    String mensajeError = null;</span>
+    try {
+<span class="nc" id="L39">      mensajeError = resourceBundle.getString(key);</span>
+<span class="nc" id="L40">      LOG.debug(&quot; Exception  code: {} mensaje: {}&quot;, code, mensajeError);</span>
+<span class="nc" id="L41">    } catch (Exception e) {</span>
+<span class="nc" id="L42">      LOG.error(&quot;: No se encontro mensaje de error {}&quot;, key, e);</span>
+<span class="nc" id="L43">      mensajeError = &quot;&quot;;</span>
+    }
+
+<span class="nc" id="L46">    return mensajeError;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

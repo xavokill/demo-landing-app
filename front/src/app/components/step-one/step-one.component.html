@@ -1,0 +1,51 @@
+<div class="row g-3">
+    <div class="col-12">
+      <span>
+        <h4>Continua tu registro, ingresando los siguientes datos:</h4>
+      </span>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="userDataForm" (submit)="validateStepOne()">
+          <div class="mb-3">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="txtCurp" placeholder="CURP" formControlName="curp" readonly>
+              <label for="txtCurp">CURP</label>
+            </div>
+          </div>          
+            <div class="mb-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="txtFullName" placeholder="Nombre Completo" formControlName="fullName" readonly>
+                <label for="txtFullName">Nombre Completo</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-floating mb-3">
+                <input type="email" id="txtEmail" placeholder="name@example.com" formControlName="email" 
+                class="{{ (userDataForm.controls['email'].touched && !userDataForm.controls['email'].valid) ? 'form-control is-invalid': 'form-control'}}">
+                <label for="txtEmail">Correo Electr&oacute;nico</label>
+                <div class="invalid-feedback">
+                  Correo Electr&oacute;nico incorrecto.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-floating">
+                <input type="text" id="txtCellPhone" placeholder="XX XXXX XXX" formControlName="cellPhone" #cellPhoneInput
+                (input)="formatCellPhone(cellPhoneInput.value)"
+                [minlength]="cellPhonelLength"
+                [maxlength]="cellPhonelLength"
+                class="{{ (userDataForm.controls['cellPhone'].touched && !userDataForm.controls['cellPhone'].valid) ? 'form-control is-invalid': 'form-control'}}">
+                <label for="txtCellPhone">Tel&eacute;fono Celular</label>
+                <div class="invalid-feedback">
+                  Tel&eacute;fono celular incorrecto.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <button type="submit" class="btn btn-danger m-2" [disabled]="userDataForm.invalid">Continuar</button>
+              <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Regresar</button>
+            </div>
+      </form>
+    </div>
+  </div>

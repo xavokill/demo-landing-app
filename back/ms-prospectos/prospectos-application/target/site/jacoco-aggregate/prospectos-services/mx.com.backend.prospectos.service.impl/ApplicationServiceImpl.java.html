@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ApplicationServiceImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">prospectos-application</a> &gt; <a href="../index.html" class="el_bundle">prospectos-services</a> &gt; <a href="index.source.html" class="el_package">mx.com.backend.prospectos.service.impl</a> &gt; <span class="el_source">ApplicationServiceImpl.java</span></div><h1>ApplicationServiceImpl.java</h1><pre class="source lang-java linenums">package mx.com.backend.prospectos.service.impl;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import java.util.List;
+import java.util.stream.Collectors;
+import mx.com.backend.prospectos.dto.ApplicationEntry;
+import mx.com.backend.prospectos.model.ApplicationItem;
+import mx.com.backend.prospectos.repository.ApplicationRepository;
+import mx.com.backend.prospectos.service.ApplicationService;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created by.
+ */
+
+@Component
+<span class="nc" id="L27">public class ApplicationServiceImpl implements ApplicationService {</span>
+
+  /** The Constant log. */
+<span class="nc" id="L30">  private static final Logger log = LoggerFactory.getLogger(ApplicationServiceImpl.class);</span>
+
+  /** The model mapper. */
+  @Autowired
+  private ModelMapper modelMapper;
+
+  /** The application repository. */
+  @Autowired
+  private ApplicationRepository applicationRepository;
+
+  /** The account sid. */
+  @Value(&quot;${account.sid}&quot;)
+  private String accountSid;
+
+  /** The auth token. */
+  @Value(&quot;${auth.token}&quot;)
+  private String authToken;
+
+  /** The telefono origen. */
+  @Value(&quot;${telefono.origen}&quot;)
+  private String telefonoOrigen;
+
+  /** The email from. */
+  @Value(&quot;${mail.from}&quot;)
+  private String emailFrom;
+
+  /** The Constant TELEFONO_DESTINATARIO. */
+  private static final String TELEFONO_DESTINATARIO = &quot;+524491186002&quot;;
+
+  /** The Constant ASUNTO_EMAIL. */
+  private static final String ASUNTO_EMAIL = &quot;Codigo de verifiación&quot;;
+
+  /** The Constant MENSAJE_SMS_EMAIL. */
+  private static final String MENSAJE_SMS_EMAIL = &quot;Tu codigo de verificación es el siguiente: &quot;;
+
+  /**
+   * Creates the application item.
+   *
+   * @param request the request
+   */
+  @Transactional
+  public void createApplicationItem(ApplicationEntry request) {
+<span class="nc" id="L72">    ApplicationItem applicationItem = modelMapper.map(request, ApplicationItem.class);</span>
+<span class="nc" id="L73">    applicationRepository.save(applicationItem);</span>
+<span class="nc" id="L74">  }</span>
+
+  /**
+   * Gets the application items.
+   *
+   * @return the application items
+   */
+  public List&lt;ApplicationEntry&gt; getApplicationItems() {
+<span class="nc" id="L82">    List&lt;ApplicationEntry&gt; lstReturn = applicationRepository.findAll().stream()</span>
+<span class="nc" id="L83">        .map(applicationItem -&gt; modelMapper.map(applicationItem, ApplicationEntry.class)).collect(Collectors.toList());</span>
+<span class="nc" id="L84">    return lstReturn;</span>
+  }
+
+  /** The email sender. */
+  @Autowired
+  private JavaMailSender emailSender;
+
+  /**
+   * Enviar sms mensage.
+   */
+  @Override
+  public void enviarSmsMensage() {
+<span class="nc" id="L96">    Twilio.init(accountSid, authToken);</span>
+<span class="nc" id="L97">    Message.creator(new PhoneNumber(TELEFONO_DESTINATARIO), new PhoneNumber(telefonoOrigen), MENSAJE_SMS_EMAIL)</span>
+<span class="nc" id="L98">        .create();</span>
+<span class="nc" id="L99">  }</span>
+
+  /**
+   * Enviar email mensage.
+   */
+  @Override
+  public void enviarEmailMensage() {
+<span class="nc" id="L106">    SimpleMailMessage message = new SimpleMailMessage();</span>
+<span class="nc" id="L107">    message.setFrom(emailFrom);</span>
+<span class="nc" id="L108">    message.setTo(&quot;edgar.jasso@capgemini.com&quot;);</span>
+<span class="nc" id="L109">    message.setSubject(ASUNTO_EMAIL);</span>
+<span class="nc" id="L110">    message.setText(MENSAJE_SMS_EMAIL);</span>
+<span class="nc" id="L111">    emailSender.send(message);</span>
+<span class="nc" id="L112">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

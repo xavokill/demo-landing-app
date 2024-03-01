@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AsesorController.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">asesores-application</a> &gt; <a href="../index.html" class="el_bundle">asesores-services</a> &gt; <a href="index.source.html" class="el_package">mx.com.backend.asesores.controller</a> &gt; <span class="el_source">AsesorController.java</span></div><h1>AsesorController.java</h1><pre class="source lang-java linenums">package mx.com.backend.asesores.controller;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import mx.com.backend.asesores.dto.TrAsesorDto;
+import mx.com.backend.asesores.exceptions.ExcepcionErrorInternoDelServidor;
+import mx.com.backend.asesores.exceptions.ExcepcionRecursoNoEncontrado;
+import mx.com.backend.asesores.service.AsesorService;
+
+import javax.websocket.server.PathParam;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * The Class AsesorController.
+ */
+@RestController
+@RequestMapping(&quot;asesores/&quot;)
+@Api(value = &quot;api asesores&quot;)
+<span class="nc" id="L34">public class AsesorController {</span>
+
+  /** The Constant log. */
+<span class="nc" id="L37">  private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);</span>
+
+  /** The application service. */
+  @Autowired
+  private AsesorService asesorService;
+
+  /**
+   * Crear asesor.
+   *
+   * @param asesorDto the asesor dto
+   * @return the response entity
+   */
+  @PostMapping(produces = &quot;application/json&quot;, value = { &quot;asesor&quot; })
+  @ApiOperation(value = &quot;Crear asesor.&quot;)
+  public ResponseEntity&lt;TrAsesorDto&gt; crearAsesor(@RequestBody TrAsesorDto asesorDto) {
+    try {
+<span class="nc" id="L53">      asesorDto = asesorService.crearAsesor(asesorDto);</span>
+<span class="nc" id="L54">    } catch (Exception e) {</span>
+<span class="nc" id="L55">      throw new ExcepcionErrorInternoDelServidor(e.getMessage());</span>
+<span class="nc" id="L56">    }</span>
+<span class="nc" id="L57">    log.info(HttpStatus.CREATED.getReasonPhrase());</span>
+<span class="nc" id="L58">    return new ResponseEntity&lt;TrAsesorDto&gt;(asesorDto, HttpStatus.CREATED);</span>
+  }
+
+  /**
+   * Gets the asesor.
+   *
+   * @param idAsesor the id asesor
+   * @return the asesor
+   */
+  @GetMapping(produces = &quot;application/json&quot;, value = { &quot;asesor/{idAsesor}&quot; })
+  @ApiOperation(value = &quot;Obtener asesor.&quot;)
+  public ResponseEntity&lt;TrAsesorDto&gt; obetenerAsesor(@PathVariable long idAsesor) {
+<span class="nc" id="L70">    TrAsesorDto trAsesorDto = new TrAsesorDto();</span>
+    try {
+<span class="nc" id="L72">      trAsesorDto = asesorService.obtenerAsesor(idAsesor);</span>
+<span class="nc" id="L73">    } catch (ExcepcionRecursoNoEncontrado e) {</span>
+<span class="nc" id="L74">      throw new ExcepcionRecursoNoEncontrado(e.getMessage());</span>
+<span class="nc" id="L75">    } catch (ExcepcionErrorInternoDelServidor e) {</span>
+<span class="nc" id="L76">      throw new ExcepcionErrorInternoDelServidor(e.getMessage());</span>
+<span class="nc" id="L77">    }</span>
+<span class="nc" id="L78">    return new ResponseEntity&lt;TrAsesorDto&gt;(trAsesorDto, HttpStatus.OK);</span>
+  }
+
+  /**
+   * Eliminar asesor.
+   *
+   * @param idAsesor the id asesor
+   * @return the response entity
+   */
+  @DeleteMapping(produces = &quot;application/json&quot;, value = { &quot;asesor&quot; })
+  @ApiOperation(value = &quot;Eliminar asesor.&quot;)
+  public ResponseEntity&lt;TrAsesorDto&gt; eliminarAsesor(@RequestParam(required = true) long idAsesor) {
+<span class="nc" id="L90">    TrAsesorDto trAsesorDto = new TrAsesorDto();</span>
+    try {
+<span class="nc" id="L92">      trAsesorDto = asesorService.eliminarAsesor(idAsesor);</span>
+<span class="nc" id="L93">    } catch (ExcepcionRecursoNoEncontrado e) {</span>
+<span class="nc" id="L94">      throw new ExcepcionRecursoNoEncontrado(e.getMessage());</span>
+<span class="nc" id="L95">    } catch (ExcepcionErrorInternoDelServidor e) {</span>
+<span class="nc" id="L96">      throw new ExcepcionErrorInternoDelServidor(e.getMessage());</span>
+<span class="nc" id="L97">    }</span>
+<span class="nc" id="L98">    return new ResponseEntity&lt;TrAsesorDto&gt;(trAsesorDto, HttpStatus.OK);</span>
+  }
+
+  /**
+   * Actualizar asesor.
+   *
+   * @param idAsesor    the id asesor
+   * @param trAsesorDto the tr asesor dto
+   * @return the response entity
+   */
+  @PutMapping(produces = &quot;application/json&quot;, value = { &quot;asesor&quot; })
+  @ApiOperation(value = &quot;Actualizar asesor.&quot;)
+  public ResponseEntity&lt;TrAsesorDto&gt; actualizarAsesor(@RequestParam(required = true) long idAsesor,
+      @RequestBody TrAsesorDto trAsesorDto) {
+    try {
+<span class="nc" id="L113">      trAsesorDto = asesorService.actualizarAsesor(idAsesor, trAsesorDto);</span>
+<span class="nc" id="L114">    } catch (ExcepcionRecursoNoEncontrado e) {</span>
+<span class="nc" id="L115">      throw new ExcepcionRecursoNoEncontrado(e.getMessage());</span>
+<span class="nc" id="L116">    } catch (ExcepcionErrorInternoDelServidor e) {</span>
+<span class="nc" id="L117">      throw new ExcepcionErrorInternoDelServidor(e.getMessage());</span>
+<span class="nc" id="L118">    }</span>
+<span class="nc" id="L119">    return new ResponseEntity&lt;TrAsesorDto&gt;(trAsesorDto, HttpStatus.OK);</span>
+  }
+
+  /**
+   * Actualizar parcial asesor.
+   *
+   * @param idAsesor    the id asesor
+   * @param trAsesorDto the tr asesor dto
+   * @return the response entity
+   */
+  @PatchMapping(produces = &quot;application/json&quot;, value = { &quot;asesor&quot; })
+  @ApiOperation(value = &quot;Actualización parcial asesor.&quot;)
+  public ResponseEntity&lt;TrAsesorDto&gt; actualizacionParcialAsesor(@RequestParam(required = true) long idAsesor,
+      @RequestBody TrAsesorDto trAsesorDto) {
+    try {
+<span class="nc" id="L134">      trAsesorDto = asesorService.actualizacionParcialAsesor(idAsesor, trAsesorDto);</span>
+<span class="nc" id="L135">    } catch (ExcepcionRecursoNoEncontrado e) {</span>
+<span class="nc" id="L136">      throw new ExcepcionRecursoNoEncontrado(e.getMessage());</span>
+<span class="nc" id="L137">    } catch (ExcepcionErrorInternoDelServidor e) {</span>
+<span class="nc" id="L138">      throw new ExcepcionErrorInternoDelServidor(e.getMessage());</span>
+<span class="nc" id="L139">    }</span>
+<span class="nc" id="L140">    return new ResponseEntity&lt;TrAsesorDto&gt;(trAsesorDto, HttpStatus.OK);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

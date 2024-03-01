@@ -1,0 +1,4 @@
+mx\com\backend\asesores\base\AsesorControllerBaseTest.class
+mx\com\backend\asesores\integration\AsesorControllerTest.class
+mx\com\backend\asesores\integration\TestService.class
+mx\com\backend\asesores\base\TestBase.class

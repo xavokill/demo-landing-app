@@ -1,0 +1,53 @@
+<div class="row g-3">
+  <div class="col-12">
+    <span>
+      <h4>Selecciona un m&eacute;todo de contacto:</h4>
+    </span>
+  </div>
+  <form [formGroup]="tokenMgtForm">
+    <div class="col-12">
+
+      <div class="form-check form-check-inline">
+
+        <input class="form-check-input" type="radio" id="op1" 
+        name="channelId"
+        formControlName="channelId" 
+        [value]="cellPhoneChannelId" 
+        (change)="contactOptionChange()">
+
+        <label class="form-check-label" for="op1">Telefono</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="op2"
+         name="channelId" 
+         formControlName="channelId" 
+         [value]="emailChannelId" 
+         (change)="contactOptionChange()">
+        <label class="form-check-label" for="op2">Correo Electronico</label>
+      </div>
+
+    </div>
+    
+    <div class="col-12">
+      <div class="form-floating mt-2">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Medio de comunicaci&oacute;n"
+          readonly
+          formControlName="contactValue"
+        />
+        <label for="floatingInput"
+          >Se enviar&aacute; un c&oacute;digo usando este medio de
+          contacto</label
+        >
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-danger m-2" (click)="validateStepTwo()">Continuar</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Regresar</button>
+    </div>
+  </form>
+</div>

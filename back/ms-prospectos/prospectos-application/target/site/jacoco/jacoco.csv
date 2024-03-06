@@ -1,5 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-prospectos-application,mx.com.backend.prospectos,SwaggerConfiguration,136,0,6,0,21,0,9,0,6,0
-prospectos-application,mx.com.backend.prospectos,Application,33,0,0,0,6,0,2,0,2,0
-prospectos-application,mx.com.backend.prospectos.config,ApplicationConfig.new WebMvcConfigurer() {...},18,0,0,0,3,0,2,0,2,0
-prospectos-application,mx.com.backend.prospectos.config,ApplicationConfig,12,0,0,0,3,0,3,0,3,0

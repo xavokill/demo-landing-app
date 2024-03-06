@@ -105,7 +105,7 @@ public class ApplicationServiceImpl implements ApplicationService {
   public void enviarEmailMensage() {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(emailFrom);
-    message.setTo("edgar.jasso@capgemini.com");
+    message.setTo("<correo-electronico>");
     message.setSubject(ASUNTO_EMAIL);
     message.setText(MENSAJE_SMS_EMAIL);
     emailSender.send(message);

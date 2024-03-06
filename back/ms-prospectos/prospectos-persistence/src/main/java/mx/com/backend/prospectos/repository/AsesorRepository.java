@@ -12,7 +12,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AsesorRepository extends JpaRepository<TrAsesorEntity, Long> {
 
-	@Query(value = "SELECT ID_ASESOR FROM TR_ASESOR WHERE NUMERO_EMPLEADO_ASESOR = :numeroEmpleadoAsesor", nativeQuery = true)
-	Long obtenerIdAsesorPorNumeroEmpleado(@Param("numeroEmpleadoAsesor") String numeroEmpleadoAsesor);
-
+  /**
+   * Obtener id asesor por numero empleado.
+   *
+   * @param numeroEmpleadoAsesor the numero empleado asesor
+   * @return the long
+   */
+  @Query(value = "SELECT ID_ASESOR FROM TR_ASESOR WHERE NUMERO_EMPLEADO_ASESOR = :numeroEmpleadoAsesor", nativeQuery = true)
+  Long obtenerIdAsesorPorNumeroEmpleado(@Param("numeroEmpleadoAsesor") String numeroEmpleadoAsesor);
+  
 }

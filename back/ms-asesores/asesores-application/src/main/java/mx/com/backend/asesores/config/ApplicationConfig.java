@@ -25,7 +25,8 @@ public class ApplicationConfig {
   /**
    * Cors configurer.
    * 
-   * Configuracion para que todos nuestros apiRest puedan  ser consumidos desde cualquier origen.
+   * Configuracion para que todos nuestros apiRest puedan ser consumidos desde
+   * cualquier origen.
    *
    * @return the web mvc configurer
    */

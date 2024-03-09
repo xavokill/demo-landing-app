@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "602d2e3f-8744-4769-8685-09e0650f1379",
+		"name": "academia-fullstack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17355271"
+	},
+	"item": [
+		{
+			"name": "Landing",
+			"item": [
+				{
+					"name": "Renapo",
+					"item": [
+						{
+							"name": "Validate CURP",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/renapo/validaCurp?curp={{samplecurp}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"renapo",
+										"validaCurp"
+									],
+									"query": [
+										{
+											"key": "curp",
+											"value": "{{samplecurp}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Validate CURP - OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-api-key",
+												"value": "{{api-key}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/renapo/validaCurp?curp={{samplecurp}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"renapo",
+												"validaCurp"
+											],
+											"query": [
+												{
+													"key": "curp",
+													"value": "{{samplecurp}}"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\"curp\":{\"status\":200,\"statusText\":\"OK\"},\"renapo\":{\"curp\":\"{{$queryParams 'curp'}}\",\"apellidoPaterno\":\"FIRST\",\"apellidoMaterno\":\"SECOND\",\"nombres\":\"DUMMY\",\"sexo\":\"H\",\"fechNac\":\"12/04/1988\",\"nacionalidad\":\"MEX\",\"docProbatorio\":1,\"anioReg\":1988,\"foja\":\"\",\"tomo\":\"\",\"libro\":\"\",\"numActa\":\"00905\",\"CRIP\":\"\",\"numEntidadReg\":\"09\",\"cveMunicipioReg\":\"015\",\"NumRegExtranjeros\":\"\",\"FolioCarta\":\"\",\"cveEntidadNac\":\"DF\",\"cveEntidadEmisora\":\"\",\"statusCurp\":\"RCN\"}}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Publicity",
+					"item": [
+						{
+							"name": "Latest Publicity",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/publicity/getLatest",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"publicity",
+										"getLatest"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Default",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{url}}/publicity/getLatest",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"publicity",
+												"getLatest"
+											]
+										}
+									},
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\"Data\":[{\"Path\":\"assets/images/promo_1.jpg\",\"Title\":\"En todo el mundo\",\"Description\":\"Se parte de esta gran coorporación.\"},{\"Path\":\"assets/images/promo_2.jpg\",\"Title\":\"Alcance mundial\",\"Description\":\"Nuestros productos estan por todas partes.\"},{\"Path\":\"assets/images/promo_3.jpg\",\"Title\":\"Alta efectividad\",\"Description\":\"Nuestros productos van probados y garantizados.\"},{\"Path\":\"assets/images/promo_4.jpg\",\"Title\":\"Experiencia Real\",\"Description\":\"RACOON City, uno de nuestros tantos casos de éxito.\"}]}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://351c0bfb-7ef0-4388-bcca-468e716eed50.mock.pstmn.io"
+		}
+	]
+}

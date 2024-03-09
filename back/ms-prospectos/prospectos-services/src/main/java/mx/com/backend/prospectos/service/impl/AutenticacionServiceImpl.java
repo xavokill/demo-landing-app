@@ -75,7 +75,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         String codigo = generarCodigo();
         String codigoEncriptado = encriptarCodigo(codigo);
         if (trAutenticacionEnviarCodigoDto.getMedioAutenticacion() == Constantes.MEDIO_AUTENTICACION_SMS) {
-          enviarSmsMensage(trAutenticacionEnviarCodigoDto.getDestinatario(), telefonoOrigen, codigo);
+          enviarSmsMensage("+52" + trAutenticacionEnviarCodigoDto.getDestinatario(), telefonoOrigen, codigo);
         } else {
           enviarEmailMensage(emailFrom, trAutenticacionEnviarCodigoDto.getDestinatario(), codigo);
         }

@@ -14,6 +14,6 @@ export class RenapoService {
   validateCurp(curp: string): Observable<RenapoData>{
     const url = `${environment.POSTMAN_SERVER}/curp/validaCurp?curp=${curp}`
     // One way to set http headers
-    return this.http.get<RenapoData>(url, { headers: new HttpHeaders({"x-api-key": `${environment.SERVER_KEY}`})});
+    return this.http.get<RenapoData>(url, { headers: new HttpHeaders({"x-api-key": `${environment.POSTMAN_SERVER_KEY}`})});
   }
 }

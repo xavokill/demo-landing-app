@@ -1,6 +1,6 @@
 export const environment = {
     POSTMAN_SERVER: "",
+    POSTMAN_SERVER_KEY: "",
+    
     PROSPECT_SERVER: "",
-    SERVER_KEY: "",
-    ASESOR_ID: ""
 };

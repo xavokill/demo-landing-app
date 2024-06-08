@@ -14,6 +14,6 @@ export class PublicityService {
 
   getPublicity(): Observable<PublicityData> {
     const url = `${environment.POSTMAN_SERVER}/publicity/getLatest`;
-    return this.http.get<PublicityData>(url, { headers: new HttpHeaders({"x-api-key": `${environment.SERVER_KEY}`}) });
+    return this.http.get<PublicityData>(url, { headers: new HttpHeaders({"x-api-key": `${environment.POSTMAN_SERVER_KEY}`}) });
   }
 }

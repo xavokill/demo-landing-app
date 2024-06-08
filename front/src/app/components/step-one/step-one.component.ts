@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { CurpComponent } from '../commons/input/curp/curp.component';
 import { UserService } from '../../services/user.service';
 import { UserDataModel } from '../../models/user/user-data.model';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-step-one',
@@ -22,25 +23,34 @@ import { UserDataModel } from '../../models/user/user-data.model';
 export class StepOneComponent implements OnInit, OnDestroy {
   // Atributes
   private userDataSubscription: Subscription | null = null;
+  private employeeDataSubscription: Subscription | null = null;
   private tempUserData!: UserDataModel;
-  
+  private employeeId: string = "";
+
   public cellPhonelLength: number;
   public userDataForm!: FormGroup;
 
-  constructor(private router: Router, private userDataService: UserService) {
+  constructor(private router: Router, private userDataService: UserService, private employeeSevice: EmployeeService) {
     this.cellPhonelLength = 10;
     this.tempUserData = new UserDataModel();
   }
 
   // Life cycle hooks
   ngOnInit(): void {
+
+    if(this.employeeDataSubscription == null){
+      this.employeeDataSubscription = this.employeeSevice.getEmployeeId().subscribe((employeeId) => {
+        this.employeeId = employeeId;
+      });
+    }
+
     if (this.userDataSubscription === null) {
       this.userDataSubscription = this.userDataService
         .getUserData()
         .subscribe((userData) => {
           if (userData === null) {
             userData = new UserDataModel();
-            this.router.navigate(['/home']);
+            this.router.navigate(["/home", btoa(this.employeeId)]);
           }
           else{
             this.tempUserData = userData;                  
@@ -52,9 +62,15 @@ export class StepOneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
       this.userDataSubscription = null;
+    }
+
+    if (this.employeeDataSubscription){
+      this.employeeDataSubscription.unsubscribe();
+      this.employeeDataSubscription = null;
     }
 
     if (this.userDataForm) {
@@ -63,7 +79,7 @@ export class StepOneComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.router.navigate(["/home", btoa(this.employeeId)]);
   }
 
   validateStepOne() {

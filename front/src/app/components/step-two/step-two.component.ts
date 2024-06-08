@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { UserDataModel } from '../../models/user/user-data.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProspectService } from '../../services/prospect.service';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-step-two',
@@ -16,7 +17,9 @@ import { ProspectService } from '../../services/prospect.service';
 export class StepTwoComponent implements OnInit, OnDestroy {
   // Atributes
   private userDataSubscription: Subscription | null;
+  private employeeSubscription: Subscription | null;
   private tempUserData: UserDataModel;
+  private employeeId: string;
 
   public tokenMgtForm!: FormGroup;
   public cellPhoneChannelId: number = 1;
@@ -26,15 +29,26 @@ export class StepTwoComponent implements OnInit, OnDestroy {
   (
     private router: Router, 
     private userDataService: UserService,
-    private prospectService: ProspectService
+    private prospectService: ProspectService,
+    private employeeDataService: EmployeeService
   ) 
   {
     this.userDataSubscription = null;
+    this.employeeSubscription = null;
+
     this.tempUserData = new UserDataModel();
+    this.employeeId = "";
   }
 
   // Life cycle hooks
   ngOnInit(): void {    
+
+    if(this.employeeSubscription == null){
+      this.employeeSubscription = this.employeeDataService.getEmployeeId().subscribe((employeeId) =>{
+        this.employeeId = employeeId;
+      });
+    }
+
     if(this.userDataSubscription === null){
       this.userDataSubscription = this.userDataService.getUserData().subscribe((userData) => {
         if (userData === null) {
@@ -57,6 +71,11 @@ export class StepTwoComponent implements OnInit, OnDestroy {
       this.userDataSubscription.unsubscribe();
       this.userDataSubscription = null;
     }
+
+    if(this.employeeSubscription){
+      this.employeeSubscription.unsubscribe();
+      this.employeeSubscription = null;
+    }
   }
 
   contactOptionChange(){
@@ -75,11 +94,11 @@ export class StepTwoComponent implements OnInit, OnDestroy {
     this.prospectService.sendToken(
       this.tempUserData.Curp, 
       this.tokenMgtForm.value.contactValue,
-      this.tokenMgtForm.value.channelId      
+      this.tokenMgtForm.value.channelId,
+      this.employeeId      
       )
     .subscribe({
       next: (tokenResponse) => {
-        console.log(tokenResponse);
         this.router.navigate(["/step-three"]);
       },
       error: (error) => {

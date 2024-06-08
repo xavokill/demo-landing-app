@@ -1,1 +1,32 @@
-<p>step-three works!</p>
+<div class="row g-3">
+  <div class="col-12">
+    <span>
+      <h4>
+        Ingresa el c&oacute;digo que hemos enviado al medio de comunicaci&oacute;n seleccionado:
+      </h4>
+    </span>
+  </div>
+  <div class="col-12">
+    <form [formGroup]="tokenForm" (submit)="validateStepThree()">
+      <div class="mb-3">
+        <div class="form-floating">
+          <input type="text" id="txtUserToken" placeholder="C&oacute;digo" formControlName="token" [minlength]="tokenLength" [maxlength]="tokenLength"
+                 class="{{ tokenForm.invalid && tokenForm.touched ? 'form-control is-invalid' : 'form-control'}}"/>
+          <label for="txtUserToken">C&oacute;digo</label>
+          <div class="invalid-feedback">
+            El token es inv&aacute;lido.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-danger m-2"   
+        [disabled]="tokenForm.invalid" 
+        >Continuar</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+          Regresar
+        </button>        
+      </div>
+    </form>
+  </div>
+</div>
